@@ -39,7 +39,7 @@ const Register = () => {
       } else {
         formikRef.current.setFieldValue("formMessage", apiResponse.payLoad);
       }
-      setIsFetching(false);
+      setTimeout(() => setIsFetching(false), 4000);
     }
   };
 
@@ -81,7 +81,6 @@ const Register = () => {
               <h2 className="text-4xl font-bold text-center text-gray-700">
                 Create an account
               </h2>
-
               <p className="mt-3 text-gray-500">Let's get you started!</p>
             </div>
 
@@ -106,7 +105,14 @@ const Register = () => {
                   <Form>
                     {values.formMessage && (
                       <div>
-                        <Badge text={values.formMessage} />
+                        {isFetching ? (
+                          <Badge
+                            text="Registration is in progress, please wait"
+                            loading={true}
+                          />
+                        ) : (
+                          <Badge text={values.formMessage} loading={false} />
+                        )}
                       </div>
                     )}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

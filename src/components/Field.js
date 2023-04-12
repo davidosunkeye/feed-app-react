@@ -5,7 +5,13 @@ const Field = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   return (
     <>
-      <label className="block mb-2 text-sm text-gray-600">{label}</label>
+      {meta.touched ? (
+        <label className="block mb-2 text-sm font-medium text-green-600">
+          {label}
+        </label>
+      ) : (
+        <label className="block mb-2 text-sm  text-gray-600">{label}</label>
+      )}
       <input
         {...field}
         {...props}

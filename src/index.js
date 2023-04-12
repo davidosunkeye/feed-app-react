@@ -5,6 +5,7 @@ import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import AppRoutes from "./appRoutes/AppRoutes";
 import AppContextProvider from "./context/applicationContext";
+import Temp from "./components/Temp";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -13,4 +14,5 @@ root.render(
       <AppRoutes />
     </Router>
   </AppContextProvider>
+  // <Temp />
 );

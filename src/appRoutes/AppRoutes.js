@@ -15,7 +15,7 @@ const AppRoutes = () => {
       <Route exact path="/user/verifyEmail" element={<VerifyEmail />} />
       <Route exact path="/user/forgotPassword" element={<ForgotPassword />} />
       <Route exact path="/user/resetPassword" element={<ResetPassword />} />
-      <Route path="*" element={<Navigate to="/user/login" replace />} />
+      <Route path="*" element={<Navigate to="/user/Register" replace />} />
     </Routes>
   );
 };

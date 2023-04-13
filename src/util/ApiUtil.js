@@ -132,3 +132,59 @@ export const resetPasswordApi = async (token, password) => {
     return response;
   }
 };
+
+export const sessionApi = async (token) => {
+  let response = frameResponse();
+
+  try {
+    const url = `${API_BASE_URL}/user/get`;
+    const apiResponse = await axios.get(url, {
+      headers: { Authorization: frameToken(token) },
+    });
+    if (apiResponse.status === 200) {
+      response = frameResponse(1, apiResponse.data);
+    }
+  } catch (err) {
+    if (err.response) {
+      response = frameResponse(0, err.response.data.message);
+    }
+    console.log(err);
+  } finally {
+    return response;
+  }
+};
+
+export const updatePublicProfileApi = async (
+  token,
+  bio,
+  city,
+  country,
+  headline,
+  picture
+) => {
+  let response = frameResponse();
+  try {
+    const url = `${API_BASE_URL}/user/update/profile`;
+    const apiResponse = await axios.post(
+      url,
+      {
+        bio,
+        city,
+        country,
+        headline,
+        picture,
+      },
+      { headers: { Authorization: frameToken(token) } }
+    );
+    if (apiResponse.status === 200) {
+      response = frameResponse(1, apiResponse.data);
+    }
+  } catch (err) {
+    if (err.response) {
+      response = frameResponse(0, err.response.data.message);
+    }
+    console.log(err);
+  } finally {
+    return response;
+  }
+};

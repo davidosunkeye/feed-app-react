@@ -75,7 +75,7 @@ const NavBar = ({ pageTitle = "Feed App" }) => {
               </li>
               <li>
                 <Link
-                  className="text-sm text-gray-500 hover:text-purple-600"
+                  className="text-sm text-gray-500 hover:text-purple-600|text-lg"
                   to="/app/myFeeds"
                 >
                   My Feeds

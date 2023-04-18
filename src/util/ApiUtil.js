@@ -294,6 +294,7 @@ export const updateBasicProfileApi = async (
   let response = frameResponse();
   try {
     const url = `${API_BASE_URL}/user/update`;
+
     const apiResponse = await axios.post(
       url,
       {
@@ -305,6 +306,29 @@ export const updateBasicProfileApi = async (
       },
       { headers: { Authorization: frameToken(token) } }
     );
+    if (apiResponse.status === 200) {
+      response = frameResponse(1, apiResponse.data);
+    }
+  } catch (err) {
+    if (err.response) {
+      response = frameResponse(0, err.response.data.message);
+    }
+    console.log(err);
+  } finally {
+    return response;
+  }
+};
+
+export const deleteFeedApi = async (token, feedId) => {
+  let response = frameResponse();
+  console.log(feedId, response);
+  try {
+    const url = `${API_BASE_URL}/feeds/${feedId}`;
+
+    const apiResponse = await axios.delete(url, {
+      headers: { Authorization: frameToken(token) },
+    });
+
     if (apiResponse.status === 200) {
       response = frameResponse(1, apiResponse.data);
     }

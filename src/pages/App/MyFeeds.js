@@ -38,6 +38,8 @@ const MyFeeds = () => {
       feedsDataNew.push(...apiResponse.payLoad.content);
       setFeedsData(feedsDataNew);
 
+      console.log(feedsData);
+
       setPageNumber(loadPageNumber + 1);
 
       if (loadPageNumber === apiResponse.payLoad.totalPages) {
@@ -80,18 +82,22 @@ const MyFeeds = () => {
           <div className="mt-3">
             {feedsData.map(
               ({ feedId, picture, content, createdOn, feedMetaData, user }) => (
-                <FeedCard
-                  key={feedId}
-                  feedId={feedId}
-                  picture={picture}
-                  content={content}
-                  createdOn={createdOn}
-                  username={user.username}
-                  firstName={user.firstName}
-                  lastName={user.lastName}
-                  profilePicture={user.profile.picture}
-                  feedMetaData={feedMetaData}
-                />
+                <>
+                  {console.log(feedsData)}
+                  <FeedCard
+                    key={feedId}
+                    feedId={feedId}
+                    picture={picture}
+                    content={content}
+                    createdOn={createdOn}
+                    username={user.username}
+                    firstName={user.firstName}
+                    lastName={user.lastName}
+                    profilePicture={user.profile.picture}
+                    feedMetaData={feedMetaData}
+                    loadOnDelete={getMyFeeds}
+                  />
+                </>
               )
             )}
           </div>

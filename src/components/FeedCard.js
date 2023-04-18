@@ -5,7 +5,7 @@ import Moment from "react-moment";
 
 import { AppContext } from "../context/applicationContext";
 
-import { addFeedMetaDataApi } from "../util/ApiUtil";
+import { addFeedMetaDataApi, deleteFeedApi } from "../util/ApiUtil";
 
 const FeedCard = ({
   feedId,
@@ -17,6 +17,7 @@ const FeedCard = ({
   lastName,
   profilePicture,
   feedMetaData = [],
+  loadOnDelete = undefined,
 }) => {
   const formikRef = useRef();
 
@@ -127,11 +128,24 @@ const FeedCard = ({
     comment: Yup.string().required("Required"),
   });
 
+  const deleteFeed = async (feedId) => {
+    if (!isFetching) {
+      setIsFetching(true);
+
+      const apiResponse = await deleteFeedApi(token, feedId);
+      console.log(apiResponse);
+
+      if (apiResponse.status === 1) {
+        loadOnDelete(0);
+      }
+      setIsFetching(false);
+    }
+  };
+
   return (
     <div className="bg-white shadow rounded-lg mb-5">
       <div className="flex w-full border-t border-gray-100">
         <div className="flex flex-row w-full py-2">
-          {/* {#CardHeader Section} */}
           <div className="flex flex-row px-2 py-3 mx-3">
             <img
               className="w-12 h-12 object-cover rounded-full shadow cursor-pointer"
@@ -153,10 +167,28 @@ const FeedCard = ({
             </div>
           </div>
         </div>
+        {/* {#DeleteFeedButton Section} */}
+        {loadOnDelete && (
+          <div
+            className="flex flex-col justify-center m-5"
+            onClick={() => deleteFeed(feedId)}
+          >
+            <span className="transition ease-out duration-300 hover:bg-gray-50 bg-gray-100 h-8 px-2 py-2 text-center rounded-full text-gray-100 cursor-pointer">
+              <svg
+                className="h-4 w-4 text-gray-500"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M7 21q-.825 0-1.413-.588T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.588 1.413T17 21H7ZM17 6H7v13h10V6ZM9 17h2V8H9v9Zm4 0h2V8h-2v9ZM7 6v13V6Z"
+                />
+              </svg>
+            </span>
+          </div>
+        )}
       </div>
-      {/* {#DeleteFeedButton Section} */}
       <div className="border-b border-gray-100"></div>
-      {/* {#CardBody Section} */}
       <div className="text-gray-400 font-medium text-sm mb-7 mt-6 mx-3 px-2">
         <img className="rounded w-full" src={picture} />
       </div>
@@ -164,7 +196,6 @@ const FeedCard = ({
       <div className="text-gray-800 text-sm mb-6 mx-3 px-2">{content}</div>
 
       <div className="flex w-full border-t border-gray-100">
-        {/* {#LikeAndCommentCount Section} */}
         <div className="mt-3 mx-5 flex flex-row text-xs" onClick={addLike}>
           <span className="transition ease-out duration-300 hover:bg-gray-50 bg-gray-100 h-8 px-2 py-2 text-center rounded-full text-gray-100 cursor-pointer">
             <svg
@@ -195,7 +226,6 @@ const FeedCard = ({
           </div>
         </div>
       </div>
-      {/* {#Comments Section} */}
       <div key={comments}>
         {comments.map(
           (
@@ -213,7 +243,6 @@ const FeedCard = ({
           )
         )}
       </div>
-      {/* {#AddCommentForm Section} */}
       <Formik
         innerRef={formikRef}
         initialValues={{
@@ -250,7 +279,7 @@ const FeedCard = ({
                 id="comment"
                 name="comment"
                 type="search"
-                className="w-full py-2 pl-4 pr-10 text-sm bg-gray-100 border border-transparent appearance-none rounded-tg placeholder-gray-400 focus:bg-white focus:outline-none focus:border-gray-500 focus:text-gray-900 focus:shadow-outline-red custom-br-25 rounded-lg"
+                className="w-full py-2 pl-4 pr-10 text-sm bg-gray-100 border border-transparent appearance-none rounded-tg placeholder-gray-400 focus:bg-white focus:outline-none focus:border-purple-500 focus:text-gray-900 focus:shadow-outline-blue custom-br-25"
                 placeholder="Post a comment..."
               />
             </div>

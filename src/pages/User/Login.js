@@ -51,9 +51,11 @@ const Login = () => {
           {/* {#Section 1 Çontent} */}
           <div className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
             <div>
-              <h2 className="text-4xl font-bold text-white">Welcome,</h2>
+              <h2 className="text-4xl font-bold text-white">
+                <span className="bg-slate-800">Welcome</span>
+              </h2>
 
-              <p className="max-w-xl mt-3 text-gray-300">
+              <p className="max-w-xl mt-3 text-gray-300 bg-slate-800">
                 Let's Connect! Share your memories with the world.
               </p>
             </div>

@@ -111,7 +111,7 @@ const AddFeed = () => {
             <AddFeedField
               name="content"
               id="content"
-              placeholder="Type something..."
+              placeholder="What's on your mind..."
             />
 
             <input

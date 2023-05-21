@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8080";
+const API_BASE_URL =
+  "http://ec2-3-139-79-36.us-east-2.compute.amazonaws.com:8080";
 
 const frameToken = (token) => `Bearer ${token}`;
 

@@ -19,16 +19,19 @@ const Dashboard = () => {
   const [pageNumber, setPageNumber] = useState(0);
   const [hasMore, setHasMore] = useState(true);
 
+  const [loading, setLoading] = useState(false);
+
   const getOthersFeeds = async (loadPageNumber) => {
     if (loadPageNumber === 0) {
       setFeedsData([]);
     }
-
+    setLoading(true);
     const apiResponse = await getOthersFeedsApi(token, loadPageNumber);
 
     console.log(apiResponse);
 
     if (apiResponse.status === 1) {
+      setLoading(false);
       let feedsDataNew = [];
       if (loadPageNumber !== 0) {
         feedsDataNew = feedsData;
@@ -56,7 +59,7 @@ const Dashboard = () => {
   }
 
   return (
-    <main className="grid grid-cols-1 lg:grid-cols-2 gap-6 my-12 mx-0 md:mx-12 w-2xl container px-2 mx-auto">
+    <main className="grid grid-cols-1 lg:grid-cols-2 gap-6 my-12 w-11/12 md:mx-12 w-2xl container px-2 mx-auto">
       {/* {#MyProfile Component} */}
       <MyProfile />
       <article>
@@ -83,6 +86,8 @@ const Dashboard = () => {
           }
         >
           <div className="mt-3">
+            {loading && <h3>Loading feeds, please wait.</h3>}
+
             {feedsData.map(
               ({ feedId, picture, content, createdOn, feedMetaData, user }) => (
                 <FeedCard

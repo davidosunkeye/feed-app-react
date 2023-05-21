@@ -115,7 +115,7 @@ const UpdatePublicProfile = ({
         onSubmit={onFormSubmit}
       >
         {({ values }) => (
-          <Form className="bg-white shadow rounded-lg mb-6 p-5">
+          <Form className="bg-white shadow rounded-lg mb-6 p-5 w-11/12">
             <div className="text-gray-600 text-lg font-semibold mt-2 mb-7">
               Public Profile
             </div>
